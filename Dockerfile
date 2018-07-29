@@ -6,4 +6,4 @@ FROM alpine:$ver_alpine
 LABEL maintainer="admin@qi2.info"
 # Alpine setup
 # install MariaDB Alpine package
-RUN apk add --update-cache mariadb=$ver_mariadb
+RUN apk add --update-cache mariadb=${ver_mariadb}
