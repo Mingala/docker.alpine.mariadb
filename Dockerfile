@@ -27,5 +27,7 @@ VOLUME ["/var/lib/mysql"]
 EXPOSE ${MYSQL_TCP_PORT}/tcp
 # extra running config, accessed via --defaults-extra-file (to map)
 COPY extra/my.cnf /etc/mysql/extra/my.cnf
+
+ENTRYPOINT ["ash"]
 # ENTRYPOINT ["/usr/bin/mysqld_safe"]
 # CMD ["--defaults-extra-file=/etc/mysql/extra/my.cnf --user=mysql --datadir=/var/lib/mysql"]
