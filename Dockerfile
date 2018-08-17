@@ -26,8 +26,8 @@ COPY etc/mysql/extra/my.cnf /etc/mysql/extra/my.cnf
 
 # entrypoint bash
 COPY usr/local/bin/docker_entrypoint.sh /usr/local/bin/docker_entrypoint.sh
+RUN chmod u+x /usr/local/bin/docker_entrypoint.sh
 # setup MariaDB if no mysql database found
 # run MariaDB with extra config
 EXPOSE ${MYSQL_TCP_PORT}/tcp
-ENTRYPOINT ["/bin/ash"]
-# ENTRYPOINT ["/usr/bin/local/docker_entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/docker_entrypoint.sh"]
