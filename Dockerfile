@@ -15,6 +15,7 @@ RUN apk add --update-cache mariadb~${version_app} mariadb-client~${version_app}
 # server config file (bind mount file at Docker run) /etc/mysql/server/my.cnf
 # extra config file (bind mount file at Docker run) /etc/mysql/extra/my.cnf
 # databases folder (bind mount folder at Docker run) /var/lib/mysql/
+ENV MYSQL_DATABASE=/var/lib/mysql
 # ports
 ENV MYSQL_TCP_PORT=3306
 # server default config, accessed via ENV MYSQL_HOME
