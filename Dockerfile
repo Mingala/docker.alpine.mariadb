@@ -12,22 +12,19 @@ ENV version_app=10.2.15
 RUN apk add --update-cache mariadb~${version_app} mariadb-client~${version_app}
 
 # setup MariaDB
-# server config file (to map) /etc/mysql/server/my.cnf
-# database directory (to map) /var/lib/mysql/
-ENV MYSQL_HOME=/etc/mysql/server
-ENV MYSQL_TCP_PORT=3306
-# server default config, accessed via ENV MYSQL_HOME
-COPY server/my.cnf ${MYSQL_HOME}/my.cnf
-RUN mysql_install_db --user=mysql --datadir=/var/lib/mysql --skip-auth-anonymous-user
-
-# run MariaDB
-# extra config file (to map) /etc/mysql/extra/my.cnf
-VOLUME ["/var/lib/mysql"]
+# server config file (bind mount file at Docker run) /etc/mysql/server/my.cnf
+# extra config file (bind mount file at Docker run) /etc/mysql/extra/my.cnf
+# databases folder (bind mount folder at Docker run) /var/lib/mysql/
 # ports
+ENV MYSQL_TCP_PORT=3306
 EXPOSE ${MYSQL_TCP_PORT}/tcp
-# extra running config, accessed via --defaults-extra-file (to map)
+# server default config, accessed via ENV MYSQL_HOME
+ENV MYSQL_HOME=/etc/mysql/server
+COPY etc/mysql/server/my.cnf ${MYSQL_HOME}/my.cnf
+# extra running config, accessed via --defaults-extra-file
 COPY extra/my.cnf /etc/mysql/extra/my.cnf
 
+# RUN mysql_install_db --user=mysql --datadir=/var/lib/mysql --skip-auth-anonymous-user
 ENTRYPOINT ["ash"]
 # ENTRYPOINT ["/usr/bin/mysqld_safe"]
 # CMD ["--defaults-extra-file=/etc/mysql/extra/my.cnf --user=mysql --datadir=/var/lib/mysql"]
