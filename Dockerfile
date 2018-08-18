@@ -31,5 +31,5 @@ RUN chmod u+x /usr/local/bin/docker_entrypoint.sh
 # setup MariaDB if no mysql database found
 # run MariaDB with extra config
 EXPOSE ${MYSQL_TCP_PORT}/tcp
-ENTRYPOINT ["/bin/ash"]
-# ENTRYPOINT ["/usr/local/bin/docker_entrypoint.sh"]
+# ENTRYPOINT ["/bin/ash"]
+ENTRYPOINT ["/usr/local/bin/docker_entrypoint.sh"]
