@@ -22,7 +22,8 @@ ENV MYSQL_TCP_PORT=3306
 ENV MYSQL_HOME=/etc/mysql/server
 COPY etc/mysql/server/my.cnf ${MYSQL_HOME}/my.cnf
 # extra running config, accessed via --defaults-extra-file
-COPY etc/mysql/extra/my.cnf /etc/mysql/extra/my.cnf
+ENV MYSQL_EXTRA=/etc/mysql/extra
+COPY etc/mysql/extra/my.cnf ${MYSQL_EXTRA}/my.cnf
 
 # entrypoint bash
 COPY usr/local/bin/docker_entrypoint.sh /usr/local/bin/docker_entrypoint.sh
@@ -30,4 +31,5 @@ RUN chmod u+x /usr/local/bin/docker_entrypoint.sh
 # setup MariaDB if no mysql database found
 # run MariaDB with extra config
 EXPOSE ${MYSQL_TCP_PORT}/tcp
-ENTRYPOINT ["/usr/local/bin/docker_entrypoint.sh"]
+ENTRYPOINT ["/bin/ash"]
+# ENTRYPOINT ["/usr/local/bin/docker_entrypoint.sh"]
