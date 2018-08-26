@@ -12,12 +12,13 @@ ENV version_app=10.2.15
 RUN apk add --update-cache mariadb~${version_app} mariadb-client~${version_app}
 
 # setup MariaDB environment
-# server config file (bind mount file at Docker run) /etc/mysql/server/my.cnf
-# extra config file (bind mount file at Docker run) /etc/mysql/extra/my.cnf
+# port (note that config files port definitions make precedence over this, so if different expose manually correct port)
+ENV MYSQL_TCP_PORT=3306
+# global config file (Alpine MariaDB default) /etc/mysql/my.cnf
+# server config file (bind mount file at Docker run for custom config) /etc/mysql/server/my.cnf
+# extra config file (bind mount file at Docker run for custom config) /etc/mysql/extra/my.cnf
 # databases folder (bind mount folder at Docker run) /var/lib/mysql/
 ENV MYSQL_DATABASE=/var/lib/mysql
-# ports
-ENV MYSQL_TCP_PORT=3306
 # server default config, accessed via ENV MYSQL_HOME
 ENV MYSQL_HOME=/etc/mysql/server
 COPY etc/mysql/server/my.cnf ${MYSQL_HOME}/my.cnf
