@@ -1,12 +1,12 @@
 # base version targeted
-ARG version_base=3.8
+ARG version_base=edge
 # Alpine base
 FROM alpine:$version_base
 LABEL maintainer="admin@qi2.info"
 
 USER root:root
 # app version targeted
-ENV version_app=10.2.15
+ENV version_app=10.3.9
 # Alpine setup
 # install MariaDB Alpine package
 RUN apk add --update-cache mariadb~${version_app} mariadb-client~${version_app}
